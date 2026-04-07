@@ -34,6 +34,7 @@ flag release
 library
   exposed-modules:
       Cardano.Address
+      Cardano.Address.Crypto
       Cardano.Address.Derivation
       Cardano.Address.Internal
       Cardano.Address.KeyHash

@@ -92,6 +92,11 @@ import Cardano.Address.Internal
     ( DeserialiseFailure, WithErrorMessage (..) )
 import Cardano.Mnemonic
     ( SomeMnemonic (..), entropyToBytes, mnemonicToEntropy )
+import Cardano.Address.Crypto
+    ( ScrubbedBytes
+    , blake2b256
+    , pbkdf2HmacSha512
+    )
 import Codec.Binary.Encoding
     ( AbstractEncoding (..), encode )
 import Control.DeepSeq
@@ -102,16 +107,10 @@ import Control.Exception.Base
     ( assert )
 import Control.Monad.Catch
     ( MonadThrow, throwM )
-import Crypto.Hash
-    ( hash )
-import Crypto.Hash.Algorithms
-    ( Blake2b_256, SHA512 (..) )
 import Data.Aeson
     ( ToJSON (..), (.=) )
 import Data.Bifunctor
     ( bimap, first )
-import Data.ByteArray
-    ( ScrubbedBytes )
 import Data.ByteString
     ( ByteString )
 import Data.Kind
@@ -127,7 +126,6 @@ import qualified Cardano.Address as Internal
 import qualified Cardano.Address.Derivation as Internal
 import qualified Cardano.Codec.Cbor as CBOR
 import qualified Codec.CBOR.Decoding as CBOR
-import qualified Crypto.KDF.PBKDF2 as PBKDF2
 import qualified Data.Aeson as Json
 import qualified Data.ByteArray as BA
 import qualified Data.Text.Encoding as T
@@ -618,22 +616,17 @@ minSeedLengthBytes = 16
 -- 2. Seeds for redeeming paper wallets. The seed entropy is hashed using
 --    Blake2b_256, without any serialization.
 hashSeed :: ScrubbedBytes -> ScrubbedBytes
-hashSeed = serialize . blake2b256 . serialize
+hashSeed = serialize . BA.convert . blake2b256 . serialize
   where
     serialize = BA.convert . cbor . BA.convert
     cbor = CBOR.toStrictByteString . CBOR.encodeBytes
-
--- Hash a byte string through blake2b 256
-blake2b256 :: ScrubbedBytes -> ScrubbedBytes
-blake2b256 = BA.convert . hash @ScrubbedBytes @Blake2b_256
 
 -- Derive a symmetric key for encrypting and authenticating the address
 -- derivation path. PBKDF2 encryption using HMAC with the hash algorithm SHA512
 -- is employed.
 hdPassphrase :: XPub -> ScrubbedBytes
 hdPassphrase masterKey =
-    PBKDF2.generate
-    (PBKDF2.prfHMAC SHA512)
-    (PBKDF2.Parameters 500 32)
-    (xpubToBytes masterKey)
-    ("address-hashing" :: ByteString)
+    pbkdf2HmacSha512
+        500 32
+        (xpubToBytes masterKey)
+        ("address-hashing" :: ByteString)
