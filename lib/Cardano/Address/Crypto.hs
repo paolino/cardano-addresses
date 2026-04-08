@@ -1,3 +1,4 @@
+{-# LANGUAGE ExplicitForAll #-}
 {-# LANGUAGE TypeApplications #-}
 
 {-# OPTIONS_HADDOCK prune #-}
