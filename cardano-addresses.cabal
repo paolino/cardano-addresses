@@ -157,6 +157,7 @@ test-suite unit
   main-is: Main.hs
   other-modules:
       AutoDiscover
+      Cardano.Address.CryptoSpec
       Cardano.Address.DerivationSpec
       Cardano.Address.Script.ParserSpec
       Cardano.Address.ScriptSpec
