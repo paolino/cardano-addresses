@@ -76,6 +76,7 @@ import Cardano.Address
     , unAddress
     , unsafeMkAddress
     )
+import Cardano.Address.Crypto ( ScrubbedBytes, blake2b256, pbkdf2HmacSha512 )
 import Cardano.Address.Derivation
     ( Depth (..)
     , DerivationScheme (DerivationScheme1)
@@ -88,39 +89,20 @@ import Cardano.Address.Derivation
     , toXPub
     , xpubToBytes
     )
-import Cardano.Address.Internal
-    ( DeserialiseFailure, WithErrorMessage (..) )
-import Cardano.Mnemonic
-    ( SomeMnemonic (..), entropyToBytes, mnemonicToEntropy )
-import Cardano.Address.Crypto
-    ( ScrubbedBytes
-    , blake2b256
-    , pbkdf2HmacSha512
-    )
-import Codec.Binary.Encoding
-    ( AbstractEncoding (..), encode )
-import Control.DeepSeq
-    ( NFData )
-import Control.Exception
-    ( Exception, displayException )
-import Control.Exception.Base
-    ( assert )
-import Control.Monad.Catch
-    ( MonadThrow, throwM )
-import Data.Aeson
-    ( ToJSON (..), (.=) )
-import Data.Bifunctor
-    ( bimap, first )
-import Data.ByteString
-    ( ByteString )
-import Data.Kind
-    ( Type )
-import Data.List
-    ( find )
-import Data.Word
-    ( Word32, Word8 )
-import GHC.Generics
-    ( Generic )
+import Cardano.Address.Internal ( DeserialiseFailure, WithErrorMessage (..) )
+import Cardano.Mnemonic ( SomeMnemonic (..), entropyToBytes, mnemonicToEntropy )
+import Codec.Binary.Encoding ( AbstractEncoding (..), encode )
+import Control.DeepSeq ( NFData )
+import Control.Exception ( Exception, displayException )
+import Control.Exception.Base ( assert )
+import Control.Monad.Catch ( MonadThrow, throwM )
+import Data.Aeson ( ToJSON (..), (.=) )
+import Data.Bifunctor ( bimap, first )
+import Data.ByteString ( ByteString )
+import Data.Kind ( Type )
+import Data.List ( find )
+import Data.Word ( Word32, Word8 )
+import GHC.Generics ( Generic )
 
 import qualified Cardano.Address as Internal
 import qualified Cardano.Address.Derivation as Internal

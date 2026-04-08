@@ -74,20 +74,13 @@ module Cardano.Mnemonic
 
 import Prelude
 
-import Basement.NormalForm
-    ( NormalForm (..) )
-import Basement.Sized.List
-    ( unListN )
-import Cardano.Dictionary.English
-    ( english )
-import Cardano.Dictionary.Italian
-    ( italian )
-import Control.Arrow
-    ( left )
-import Control.DeepSeq
-    ( NFData (..) )
-import Control.Monad.Catch
-    ( throwM )
+import Basement.NormalForm ( NormalForm (..) )
+import Basement.Sized.List ( unListN )
+import Cardano.Dictionary.English ( english )
+import Cardano.Dictionary.Italian ( italian )
+import Control.Arrow ( left )
+import Control.DeepSeq ( NFData (..) )
+import Control.Monad.Catch ( throwM )
 import Crypto.Encoding.BIP39
     ( CheckSumBits
     , ConsistentEntropy
@@ -111,24 +104,15 @@ import Crypto.Encoding.BIP39
     , toEntropy
     , wordsToEntropy
     )
-import Data.Bifunctor
-    ( bimap )
-import Data.ByteArray
-    ( ScrubbedBytes )
-import Data.List
-    ( intercalate )
-import Data.Proxy
-    ( Proxy (..) )
-import Data.Text
-    ( Text )
-import Data.Type.Equality
-    ( (:~:) (..), testEquality )
-import Data.Typeable
-    ( Typeable )
-import GHC.TypeLits
-    ( KnownNat, Nat, natVal )
-import Type.Reflection
-    ( typeOf )
+import Data.Bifunctor ( bimap )
+import Data.ByteArray ( ScrubbedBytes )
+import Data.List ( intercalate )
+import Data.Proxy ( Proxy (..) )
+import Data.Text ( Text )
+import Data.Type.Equality ( testEquality, (:~:) (..) )
+import Data.Typeable ( Typeable )
+import GHC.TypeLits ( KnownNat, Nat, natVal )
+import Type.Reflection ( typeOf )
 
 import qualified Basement.Compat.Base as Basement
 import qualified Basement.String as Basement

@@ -99,28 +99,17 @@ import Cardano.Address.Crypto
     , ccXPub
     , ed25519ScalarMult
     )
-import Cardano.Mnemonic
-    ( SomeMnemonic )
-import Control.DeepSeq
-    ( NFData )
-import Data.ByteString
-    ( ByteString )
-import Data.Coerce
-    ( coerce )
-import Data.Either.Extra
-    ( eitherToMaybe )
-import Data.Kind
-    ( Type )
-import Data.String
-    ( fromString )
-import Data.Word
-    ( Word32 )
-import Fmt
-    ( Buildable (..) )
-import GHC.Generics
-    ( Generic )
-import GHC.Stack
-    ( HasCallStack )
+import Cardano.Mnemonic ( SomeMnemonic )
+import Control.DeepSeq ( NFData )
+import Data.ByteString ( ByteString )
+import Data.Coerce ( coerce )
+import Data.Either.Extra ( eitherToMaybe )
+import Data.Kind ( Type )
+import Data.String ( fromString )
+import Data.Word ( Word32 )
+import Fmt ( Buildable (..) )
+import GHC.Generics ( Generic )
+import GHC.Stack ( HasCallStack )
 
 import qualified Cardano.Address.Crypto as Crypto
 import qualified Data.ByteString as BS

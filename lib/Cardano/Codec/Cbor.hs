@@ -3,7 +3,6 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes #-}
-{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeFamilies #-}
 
 {-# OPTIONS_HADDOCK prune #-}
@@ -54,16 +53,11 @@ import Cardano.Address.Crypto
     , encryptChaChaPoly1305
     , sha3_256
     )
-import Control.Monad
-    ( replicateM, when )
-import Data.ByteString
-    ( ByteString )
-import Data.List
-    ( find )
-import Data.Word
-    ( Word32, Word8 )
-import GHC.Stack
-    ( HasCallStack )
+import Control.Monad ( replicateM, when )
+import Data.ByteString ( ByteString )
+import Data.List ( find )
+import Data.Word ( Word32, Word8 )
+import GHC.Stack ( HasCallStack )
 
 import qualified Codec.CBOR.Decoding as CBOR
 import qualified Codec.CBOR.Encoding as CBOR
@@ -332,8 +326,7 @@ decryptDerivationPath
     -> ByteString
         -- ^ Payload to be decrypted
     -> CryptoFailable ByteString
-decryptDerivationPath pwd bytes =
-    decryptChaChaPoly1305 pwd cardanoNonce bytes
+decryptDerivationPath pwd = decryptChaChaPoly1305 pwd cardanoNonce
 
 -- Opposite of 'encodeDerivationPath'.
 decodeDerivationPath

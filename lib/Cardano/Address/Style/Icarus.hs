@@ -75,6 +75,8 @@ import Cardano.Address
     , unAddress
     , unsafeMkAddress
     )
+import Cardano.Address.Crypto
+    ( ScrubbedBytes, hmacSha256, hmacSha512, pbkdf2HmacSha512 )
 import Cardano.Address.Derivation
     ( Depth (..)
     , DerivationScheme (..)
@@ -89,8 +91,7 @@ import Cardano.Address.Derivation
     , unsafeMkIndex
     , xprvFromBytes
     )
-import Cardano.Address.Internal
-    ( DeserialiseFailure, WithErrorMessage (..) )
+import Cardano.Address.Internal ( DeserialiseFailure, WithErrorMessage (..) )
 import Cardano.Address.Style.Byron
     ( byronMainnet, byronPreprod, byronPreview, byronStaging, byronTestnet )
 import Cardano.Mnemonic
@@ -100,42 +101,21 @@ import Cardano.Mnemonic
     , mnemonicToEntropy
     , mnemonicToTextWithDict
     )
-import Cardano.Address.Crypto
-    ( ScrubbedBytes
-    , hmacSha256
-    , hmacSha512
-    , pbkdf2HmacSha512
-    )
-import Codec.Binary.Encoding
-    ( AbstractEncoding (..), encode )
-import Control.DeepSeq
-    ( NFData )
-import Control.Exception
-    ( Exception, displayException )
-import Control.Exception.Base
-    ( assert )
-import Control.Monad.Catch
-    ( MonadThrow, throwM )
-import Data.Aeson
-    ( ToJSON (..), (.=) )
-import Data.Bifunctor
-    ( bimap, first )
-import Data.Bits
-    ( clearBit, setBit, testBit )
-import Data.ByteString
-    ( ByteString )
-import Data.Function
-    ( (&) )
-import Data.Maybe
-    ( fromMaybe )
-import Data.Typeable
-    ( Typeable )
-import Data.Word
-    ( Word32, Word8 )
-import Fmt
-    ( format )
-import GHC.Generics
-    ( Generic )
+import Codec.Binary.Encoding ( AbstractEncoding (..), encode )
+import Control.DeepSeq ( NFData )
+import Control.Exception ( Exception, displayException )
+import Control.Exception.Base ( assert )
+import Control.Monad.Catch ( MonadThrow, throwM )
+import Data.Aeson ( ToJSON (..), (.=) )
+import Data.Bifunctor ( bimap, first )
+import Data.Bits ( clearBit, setBit, testBit )
+import Data.ByteString ( ByteString )
+import Data.Function ( (&) )
+import Data.Maybe ( fromMaybe )
+import Data.Typeable ( Typeable )
+import Data.Word ( Word32, Word8 )
+import Fmt ( format )
+import GHC.Generics ( Generic )
 
 import qualified Cardano.Address as Internal
 import qualified Cardano.Address.Derivation as Internal

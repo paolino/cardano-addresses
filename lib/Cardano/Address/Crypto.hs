@@ -72,27 +72,12 @@ module Cardano.Address.Crypto
 import Prelude
 
 import Cardano.Crypto.Wallet
-    ( ChainCode (..)
-    , DerivationScheme (..)
-    , XPrv
-    , XPub (..)
-    , XSignature
-    )
-import Crypto.Error
-    ( CryptoError (..)
-    , CryptoFailable (..)
-    , eitherCryptoError
-    )
-import Data.ByteArray
-    ( ByteArrayAccess
-    , ScrubbedBytes
-    )
-import Data.ByteString
-    ( ByteString )
-import Data.Digest.CRC32
-    ( crc32 )
-import Data.Word
-    ( Word32 )
+    ( ChainCode (..), DerivationScheme (..), XPrv, XPub (..), XSignature )
+import Crypto.Error ( CryptoError (..), CryptoFailable (..), eitherCryptoError )
+import Data.ByteArray ( ByteArrayAccess, ScrubbedBytes )
+import Data.ByteString ( ByteString )
+import Data.Digest.CRC32 ( crc32 )
+import Data.Word ( Word32 )
 
 import qualified Cardano.Crypto.Wallet as CC
 import qualified Crypto.Cipher.ChaChaPoly1305 as Poly
@@ -158,12 +143,10 @@ pbkdf2HmacSha512
     -> password
     -> salt
     -> ScrubbedBytes
-pbkdf2HmacSha512 iters len password salt =
+pbkdf2HmacSha512 iters len =
     PBKDF2.generate
         (PBKDF2.prfHMAC Alg.SHA512)
         (PBKDF2.Parameters iters len)
-        password
-        salt
 
 --
 -- HMAC
